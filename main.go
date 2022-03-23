@@ -103,7 +103,7 @@ func main() {
 // passed to it after user provides consent
 func startCallbackHttpServer(codeCh chan string, state string) error {
 	var srv = http.Server{
-		Addr: "localhost:9999",
+		Addr: ":9999",
 	}
 
 	shutdownSrv := make(chan bool)
