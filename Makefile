@@ -1,7 +1,7 @@
 all: raisepr
 
-raisepr: main.go
-	go build -o $@ $<
+raisepr: main.go helpers.go types.go
+	go build -o $@ $?
 
 .PHONY: clean
 clean:
