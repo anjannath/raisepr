@@ -5,7 +5,7 @@ IMAGE_NAME := anjannath/raisepr
 all: raisepr
 
 raisepr: main.go helpers.go types.go
-	go build -o $@ $?
+	go build -o $@ $^
 
 .PHONY: clean
 clean:
