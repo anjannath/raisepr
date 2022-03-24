@@ -1,11 +1,14 @@
+SHELL := /bin/bash
+
 CONTAINER_RUNTIME ?= podman
 IMAGE_TAG := 0.0.1
 IMAGE_NAME := anjannath/raisepr
 
+GO_SOURCE := pkg
 all: raisepr
 
-raisepr: main.go helpers.go types.go
-	go build -o $@ $^
+raisepr: main.go types.go helpers.go $(GO_SOURCE)
+	go build -o $@ .
 
 .PHONY: clean
 clean:
