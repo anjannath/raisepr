@@ -7,8 +7,8 @@ IMAGE_NAME := anjannath/raisepr
 GO_SOURCE := pkg
 all: raisepr
 
-raisepr: main.go types.go helpers.go $(GO_SOURCE)
-	go build -o $@ .
+raisepr: main.go $(GO_SOURCE)
+	go build -o $@ $<
 
 .PHONY: clean
 clean:
@@ -16,7 +16,7 @@ clean:
 
 .PHONY: test
 test:
-	@go test -v .
+	@go test -v ./...
 
 container-build: Dockerfile
 	$(CONTAINER_RUNTIME) build -f Dockerfile -t $(IMAGE_NAME):$(IMAGE_TAG) .

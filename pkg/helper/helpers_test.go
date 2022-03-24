@@ -1,4 +1,4 @@
-package main
+package helper
 
 import (
 	"testing"
@@ -6,9 +6,11 @@ import (
 )
 
 func TestRandomBranchName(t *testing.T) {
-	b1 := randBranchName()
+	t.Parallel()
+
+	b1 := RandBranchName()
 	time.Sleep(time.Second)
-	b2 := randBranchName()
+	b2 := RandBranchName()
 
 	if b1 == b2 {
 		t.Errorf("Generated same branch name twice b1=%s and b2=%s", b1, b2)
@@ -16,12 +18,14 @@ func TestRandomBranchName(t *testing.T) {
 }
 
 func TestMissingOptsCausesError(t *testing.T) {
-	cfg, err := getOptsFromEnv()
+	t.Parallel()
+
+	cfg, err := GetOptsFromEnv()
 	if err == nil {
 		t.Error("Missing options are not triggering error")
 	}
 
-	cnf := config{}
+	cnf := Config{}
 	if cfg != cnf {
 		t.Errorf("Wrong config struct returned, should be empty: %v", cfg)
 	}

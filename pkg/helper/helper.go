@@ -1,4 +1,4 @@
-package main
+package helper
 
 import (
 	"fmt"
@@ -7,7 +7,14 @@ import (
 	"time"
 )
 
-func randBranchName() string {
+type Config struct {
+	RepoName     string
+	RepoOwner    string
+	ClientID     string
+	ClientSecret string
+}
+
+func RandBranchName() string {
 	rand.Seed(time.Now().Unix())
 	letterBytes := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	b := make([]byte, 6)
@@ -17,37 +24,30 @@ func randBranchName() string {
 	return string(b)
 }
 
-func handleError(err error, code int) {
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(code)
-	}
-}
-
-func getOptsFromEnv() (config, error) {
+func GetOptsFromEnv() (Config, error) {
 	missingEnvMsg := "Set required env %s"
 
 	repo := os.Getenv("REPO_NAME")
 	if repo == "" {
-		return config{}, fmt.Errorf(missingEnvMsg, "REPO_NAME")
+		return Config{}, fmt.Errorf(missingEnvMsg, "REPO_NAME")
 	}
 
 	owner := os.Getenv("REPO_OWNER")
 	if owner == "" {
-		return config{}, fmt.Errorf(missingEnvMsg, "REPO_OWNER")
+		return Config{}, fmt.Errorf(missingEnvMsg, "REPO_OWNER")
 	}
 
 	client_id := os.Getenv("CLIENT_ID")
 	if client_id == "" {
-		return config{}, fmt.Errorf(missingEnvMsg, "CLIENT_ID")
+		return Config{}, fmt.Errorf(missingEnvMsg, "CLIENT_ID")
 	}
 
 	secret := os.Getenv("SECRET")
 	if secret == "" {
-		return config{}, fmt.Errorf(missingEnvMsg, "SECRET")
+		return Config{}, fmt.Errorf(missingEnvMsg, "SECRET")
 	}
 
-	return config{
+	return Config{
 		RepoName:     repo,
 		RepoOwner:    owner,
 		ClientID:     client_id,
