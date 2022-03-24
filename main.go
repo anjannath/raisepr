@@ -95,7 +95,7 @@ func main() {
 	pullReq, _, err := gh.PullRequests.Create(context.Background(), cfg.RepoOwner, cfg.RepoName, newPR)
 	handleError(err, 16)
 
-	fmt.Println("PR Created at: ", *pullReq.URL)
+	fmt.Println("PR Created at: ", *pullReq.HTMLURL)
 }
 
 // startCallbackHttpServer listens on port 9999 of localhost
